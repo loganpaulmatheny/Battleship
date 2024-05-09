@@ -10,7 +10,10 @@ class Ship
   end 
 
   def hit 
-    @heatlh - 1
+    @health = @health - 1
+    if @health == 0
+      @sunk = true
+    end 
   end 
 
   def sunk? 
@@ -18,3 +21,9 @@ class Ship
   end 
 
 end 
+
+# Ship Class 
+  # What did i learn from this class?
+  # I learned how pry can be used to work within a session
+
+# Cell

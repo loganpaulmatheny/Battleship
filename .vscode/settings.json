@@ -1,0 +1,5 @@
+{
+  "workbench.editor.centeredLayoutFixedWidth": true,
+  "workbench.editor.centeredLayoutAutoResize": true,
+  "workbench.editor.doubleClickTabToToggleEditorGroupSizes": "expand"
+}
