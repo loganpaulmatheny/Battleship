@@ -17,7 +17,6 @@ RSpec.describe 'Ship' do
       ship.hit
       expect(ship.health).to eq(0)
       expect(ship.sunk?).to eq(true)
-
     end
   end
 end 
