@@ -81,6 +81,9 @@ RSpec.describe 'Cell' do
       cell.fire_upon
       render_ship = cell.render
       expect(render_ship).to eq("X")
+
+      # okay so what's happening is that when you fire upon a cell, it's not changing the health if it's a hit
+      # So I originally changed the render method, and when a 'H' is registered it will call the ship.hit method. We need this to occur via the fire_upon logic
     end 
   end 
 end
