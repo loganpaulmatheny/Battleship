@@ -30,21 +30,9 @@ class Board
   def place(ship, coordinates)
     # Check if the placement is valid
     if valid_placement?(ship, coordinates)
-      # Iterate through the given coordinates
-
-      # there needs to be the check if there is a ship already in any of the coordinates
       coordinates.each do |coordinate|
-        # Check if there is already a ship at this coordinate
-        if @cells[coordinate]&.ship.nil?
-          # Place the ship at this coordinate
-          @cells[coordinate].place_ship(ship)
-        else
-          # If any coordinate is occupied, print a message and return false
-          puts "There's already a ship at #{coordinate}"
-          return false
-        end
-      end
-      # If all coordinates are valid and unoccupied, return true
+        @cells[coordinate].place_ship(ship)
+      end 
       true
     else
       # If the placement is not valid, return false
@@ -57,8 +45,9 @@ class Board
   def valid_placement?(ship, coordinates)
     valid_length = check_ship_coordinates?(ship, coordinates)
     consecutive_placement = consecutive_coordinates?(coordinates)
+    overlap = placement_unoccupied?(coordinates)
 
-    if valid_length == false || consecutive_placement == false 
+    if valid_length == false || consecutive_placement == false || overlap == false
       return false
     else 
       return true
@@ -110,6 +99,23 @@ class Board
   
     (all_letters_same && numbers_consecutive) || (all_numbers_same && letters_consecutive)
     # This simply checks to make sure you either have consecutive letters or numbers and not diagonals 
+  end
+
+  def placement_unoccupied?(coordinates)
+     # there needs to be the check if there is a ship already in any of the coordinates
+     coordinates.each do |coordinate|
+      # Check if there is already a ship at this coordinate
+      if @cells[coordinate]&.ship.nil?
+        # Place the ship at this coordinate
+        next
+      else
+        # If any coordinate is occupied, print a message and return false
+        puts "There's already a ship at #{coordinate}"
+        return false
+      end
+    end
+    # If all coordinates are valid and unoccupied, return true
+    return true    
   end
 
 
