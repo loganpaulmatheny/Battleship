@@ -1,5 +1,6 @@
 require './lib/cell'
 class Board 
+  attr_reader :cells
   # U is to create a cells method that will create 16 cells and place them in a hash
   # M 
   # - I can use two loops to pass the appropriate arguments to the Cell.new() constructor  
@@ -14,9 +15,10 @@ class Board
     @cells = {}
     @columns = ('A'..'D').to_a
     @rows = (1..4).to_a
+    populate_cells
   end
 
-  def cells
+  def populate_cells
     @columns.each do |letter|
       @rows.each do |row|
         @cells["#{letter}#{row}"] = Cell.new("#{letter}#{row}")
@@ -24,6 +26,33 @@ class Board
     end 
     @cells
   end 
+
+  def place(ship, coordinates)
+    # Check if the placement is valid
+    if valid_placement?(ship, coordinates)
+      # Iterate through the given coordinates
+
+      # there needs to be the check if there is a ship already in any of the coordinates
+      coordinates.each do |coordinate|
+        # Check if there is already a ship at this coordinate
+        if @cells[coordinate]&.ship.nil?
+          # Place the ship at this coordinate
+          @cells[coordinate].place_ship(ship)
+        else
+          # If any coordinate is occupied, print a message and return false
+          puts "There's already a ship at #{coordinate}"
+          return false
+        end
+      end
+      # If all coordinates are valid and unoccupied, return true
+      true
+    else
+      # If the placement is not valid, return false
+      puts "Invalid placement"
+      false
+    end
+  end
+  
 
   def valid_placement?(ship, coordinates)
     valid_length = check_ship_coordinates?(ship, coordinates)
