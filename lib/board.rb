@@ -119,17 +119,32 @@ class Board
   end
 
   def render(show_ships = false) 
-    # U
-      # render a string that shows the board based on the current rules from iteration 1
-      # do it as a single string and then show it as separate lines (maybe through a loop)
+    # U - how can we create the headings? 
     # M 
-      # where is the cata for the cells held? -> there's alreadya render method for cell that will do the trick
+      # need to iterate through the coordinates letters
+      # need to iterate through the coordinates numbers
+      # need to add a blank in the 
+      # is it easier to keep track of what row we're on? 
     # P
-      # iterate through @cells -- we can do this because hashes have iteration methods in ruby 
-    @cells.each do |coordinate, cell|
-      print coordinate + "-" + cell.render(show_ships) + " "
-      print "\n" if coordinate.end_with?("4")
+      # first just print the headings 
+      # iterate the first row of A coordinates including the coordinate header 1 
+      # iterate the next row of B coordinates including coordinate header 2 
+    print " "
+    @rows.each { |row| print row.to_s + " "}
+    print "/n"
+
+    @columns.each do |letter|
+      print letter + " "
+      @rows.each do |row|
+        coordinate = "#{letter}#{row}"
+        print @cells[coordinate].render(show_ships)
+      end 
+      print "\n"
     end 
+    # @cells.each do |coordinate, cell|
+    #   print coordinate + "-" + cell.render(show_ships) + " "
+    #   print "\n" if coordinate.end_with?("4")
+    # end 
   end
 
 end 
