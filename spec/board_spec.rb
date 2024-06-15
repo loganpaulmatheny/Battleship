@@ -46,12 +46,11 @@ RSpec.describe 'Board' do
   end 
 
   describe '#valid_placement?' do 
-    it 'should not allow ' do 
+    it 'should not allow overlaps' do 
       board = Board.new
       ship = Ship.new("Cruiser", 3)
       sub = Ship.new("Submarine", 2)
-      # board.place(ship, ["A1","A2","A3"])
-      # this is not a method yet ^
+      board.place(ship, ["A1","A2","A3"])
       sub_overlap_placement = board.valid_placement?(sub, ["A1", "A2"])
       expect(sub_overlap_placement).to eq(false)
     end 
