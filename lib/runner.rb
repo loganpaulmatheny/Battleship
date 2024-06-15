@@ -11,5 +11,6 @@ board.place(ship,["A1","A2","A3"])
 # cell.fire_upon
 # cell.fire_upon
 # cell.fire_upon
+board.render(true)
 
 require 'pry'; binding.pry

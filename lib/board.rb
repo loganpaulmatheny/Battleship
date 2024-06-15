@@ -118,6 +118,19 @@ class Board
     return true    
   end
 
+  def render(show_ships = false) 
+    # U
+      # render a string that shows the board based on the current rules from iteration 1
+      # do it as a single string and then show it as separate lines (maybe through a loop)
+    # M 
+      # where is the cata for the cells held? -> there's alreadya render method for cell that will do the trick
+    # P
+      # iterate through @cells -- we can do this because hashes have iteration methods in ruby 
+    @cells.each do |coordinate, cell|
+      print coordinate + "-" + cell.render(show_ships) + " "
+      print "\n" if coordinate.end_with?("4")
+    end 
+  end
 
 end 
 
