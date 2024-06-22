@@ -118,6 +118,34 @@ class Board
     return true    
   end
 
+  def render(show_ships = false) 
+    # U - how can we create the headings? 
+    # M 
+      # need to iterate through the coordinates letters
+      # need to iterate through the coordinates numbers
+      # need to add a blank in the 
+      # is it easier to keep track of what row we're on? 
+    # P
+      # first just print the headings 
+      # iterate the first row of A coordinates including the coordinate header 1 
+      # iterate the next row of B coordinates including coordinate header 2 
+    print " "
+    @rows.each { |row| print row.to_s + " "}
+    print "\n"
+
+    @columns.each do |letter|
+      print letter + " "
+      @rows.each do |row|
+        coordinate = "#{letter}#{row}"
+        print @cells[coordinate].render(show_ships)
+      end 
+      print "\n"
+    end 
+    # @cells.each do |coordinate, cell|
+    #   print coordinate + "-" + cell.render(show_ships) + " "
+    #   print "\n" if coordinate.end_with?("4")
+    # end 
+  end
 
 end 
 
