@@ -131,7 +131,7 @@ class Board
       # iterate the next row of B coordinates including coordinate header 2 
     print " "
     @rows.each { |row| print row.to_s + " "}
-    print "/n"
+    print "\n"
 
     @columns.each do |letter|
       print letter + " "

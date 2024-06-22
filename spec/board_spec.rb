@@ -56,5 +56,6 @@ RSpec.describe 'Board' do
     end 
   end 
 
+  # no test for capturing the stdout, use runner file
   
 end
