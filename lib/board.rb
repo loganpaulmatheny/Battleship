@@ -40,6 +40,32 @@ class Board
       false
     end
   end
+
+  def place_ship_random(board, ship)
+    valid = false
+    until valid 
+      # randomly picks an orientation for the ship
+      orientation = [:horizontal, :vertical].sample
+      # create an array and then randomly select a row
+      row = ("A".."D").to_a.sample
+      # randomly selects a number between 1 and 4
+      col = rand(1...4)
+      if orientation == :horizontal
+        # creates an array of coordinates the length of the ship (0 to ship - 1)
+        coordinates = (0..ship.length).map { |i| "#{row}#{col + i}" }
+      else 
+        # convert the letters into ASCII to move consequtively
+        coordinates = (0..ship.length).map { |i| "#{(row.ord + i.chr)}#{col}"}
+      end 
+
+      # check to see if this a valid pairing
+      if board.valid_placement?(ship, coordinates)
+        board.place(ship, coordinates)
+        valid = true
+      end 
+    end 
+
+  end
   
 
   def valid_placement?(ship, coordinates)

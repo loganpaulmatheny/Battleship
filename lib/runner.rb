@@ -10,7 +10,7 @@ puts "Welcome to ⚓️ BATTLESHIP 🏴‍☠️"
     puts "Starting your game"
     computer_board = Board.new
     cells = computer_board.cells.keys
-    # play_game
+    # randomly assign computer ships to their board
   elsif input == "q"
     puts "Quitting the game!"
   else
