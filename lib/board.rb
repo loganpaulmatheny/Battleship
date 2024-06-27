@@ -41,9 +41,13 @@ class Board
     end
   end
 
-  def place_ship_random(board, ship)
+  def place_ship_random(ship)
     valid = false
+    tries = 0 
+
     until valid 
+      tries += 1
+      puts "Attempt ##{tries}"
       # randomly picks an orientation for the ship
       orientation = [:horizontal, :vertical].sample
       # create an array and then randomly select a row
@@ -52,19 +56,23 @@ class Board
       col = rand(1...4)
       if orientation == :horizontal
         # creates an array of coordinates the length of the ship (0 to ship - 1)
-        coordinates = (0..ship.length).map { |i| "#{row}#{col + i}" }
+        coordinates = (0...ship.length).map { |i| "#{row}#{col + i}" }
       else 
         # convert the letters into ASCII to move consequtively
-        coordinates = (0..ship.length).map { |i| "#{(row.ord + i.chr)}#{col}"}
+        coordinates = (0...ship.length).map { |i| "#{(row.ord + i).chr}#{col}"}
       end 
 
+      puts "Trying coordinates: #{coordinates.inspect}"
+
+      valid_coordinates = coordinates.all? { |coord| @cells.key?(coord) }
       # check to see if this a valid pairing
-      if board.valid_placement?(ship, coordinates)
-        board.place(ship, coordinates)
+      if valid_coordinates
+        self.place(ship, coordinates)
         valid = true
+        puts "Ship placed at: #{coordinates.inspect}"
       end 
     end 
-
+    true
   end
   
 

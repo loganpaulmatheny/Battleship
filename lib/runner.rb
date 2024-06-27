@@ -9,8 +9,9 @@ puts "Welcome to ⚓️ BATTLESHIP 🏴‍☠️"
   if input == 'p'
     puts "Starting your game"
     computer_board = Board.new
-    cells = computer_board.cells.keys
-    # randomly assign computer ships to their board
+    logan_ship = Ship.new("Logan's Frigate", 3)
+    computer_cells = computer_board.place_ship_random(logan_ship)
+    # randomly assign computer ships to their board (board class)
   elsif input == "q"
     puts "Quitting the game!"
   else
