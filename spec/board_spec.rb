@@ -57,5 +57,29 @@ RSpec.describe 'Board' do
   end 
 
   # no test for capturing the stdout, use runner file
-  
+
+  # Create good and bad path tests that show you can randomly place ship
+
+  describe '#place_ship_random' do 
+    let(:board) { Board.new}
+    let(:ship) { double("Ship", length: 3)} # mocking the object as to not introduce additional dependencies
+    
+    context 'with valid placements' do 
+      it 'places the ships randomly within the board' do 
+        expect(board).to receive(:place).with(ship, instance_of(Array))
+        expect(board.place_ship_random(ship)).to be true
+      end
+    end 
+
+    context 'with invalid placements' do 
+      before do 
+        allow(board).to receive(:valid_placement?).and_return(false, true)
+      end 
+
+      it 'places the ships randomly within the board' do 
+        expect(board).to receive(:place).with(ship, instance_of(Array))
+        expect(board.place_ship_random(ship)).to be true
+      end
+    end 
+  end
 end

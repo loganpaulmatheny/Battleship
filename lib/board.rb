@@ -13,15 +13,15 @@ class Board
 
   def initialize 
     @cells = {}
-    @columns = ('A'..'D').to_a
-    @rows = (1..4).to_a
+    @rows = ('A'..'D').to_a
+    @columns = (1..4).to_a
     populate_cells
   end
 
   def populate_cells
-    @columns.each do |letter|
-      @rows.each do |row|
-        @cells["#{letter}#{row}"] = Cell.new("#{letter}#{row}")
+    @rows.each do |letter|
+      @columns.each do |number|
+        @cells["#{letter}#{number}"] = Cell.new("#{letter}#{number}")
       end
     end 
     @cells
@@ -39,6 +39,40 @@ class Board
       puts "Invalid placement"
       false
     end
+  end
+
+  def place_ship_random(ship)
+    valid = false
+    tries = 0 
+
+    until valid 
+      tries += 1
+      puts "Attempt ##{tries}"
+      # randomly picks an orientation for the ship
+      orientation = [:horizontal, :vertical].sample
+      # create an array and then randomly select a row
+      row = ("A".."D").to_a.sample
+      # randomly selects a number between 1 and 4
+      col = rand(1...4)
+      if orientation == :horizontal
+        # creates an array of coordinates the length of the ship (0 to ship - 1)
+        coordinates = (0...ship.length).map { |i| "#{row}#{col + i}" }
+      else 
+        # convert the letters into ASCII to move consequtively
+        coordinates = (0...ship.length).map { |i| "#{(row.ord + i).chr}#{col}"}
+      end 
+
+      # puts "Trying coordinates: #{coordinates.inspect}" 
+
+      valid_coordinates = coordinates.all? { |coord| @cells.key?(coord) }
+      # check to see if this a valid pairing
+      if valid_coordinates
+        self.place(ship, coordinates)
+        valid = true
+        # puts "Ship placed at: #{coordinates.inspect}"
+      end 
+    end 
+    true
   end
   
 
@@ -130,14 +164,14 @@ class Board
       # iterate the first row of A coordinates including the coordinate header 1 
       # iterate the next row of B coordinates including coordinate header 2 
     print " "
-    @rows.each { |row| print row.to_s + " "}
+    @columns.each { |number| print number.to_s + " "}
     print "\n"
-
-    @columns.each do |letter|
+    
+    @rows.each do |letter|
       print letter + " "
-      @rows.each do |row|
-        coordinate = "#{letter}#{row}"
-        print @cells[coordinate].render(show_ships)
+      @columns.each do |number|
+        coordinate = "#{letter}#{number}"
+        print @cells[coordinate].render(show_ships) + " "
       end 
       print "\n"
     end 

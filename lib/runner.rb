@@ -3,20 +3,26 @@ require './lib/cell'
 require './lib/board'
 
 puts "Welcome to ⚓️ BATTLESHIP 🏴‍☠️"
-loop do 
+# loop do 
   puts "Enter p to play. Enter q to quit."
   input = gets.chomp.downcase
   if input == 'p'
     puts "Starting your game"
-    Board.new
-    # play_game
-    break
+    computer_board = Board.new
+    computer_ship = Ship.new("ai's Frigate", 3)
+    computer_cells = computer_board.place_ship_random(computer_ship)
+    puts "I have laid out my ships on the grid. You now need to lay out one ship. The Cruiser is three units."
+    puts "This is what the board looks like"
+    player_board = Board.new
+    player_board.render
+    puts "Please enter squares for your Cruiser (3 spaces) and we'll begin"
+    # randomly assign computer ships to their board (board class)
   elsif input == "q"
     puts "Quitting the game!"
   else
     puts "Invalid input. Please enter 'p' to play or 'q' to quit."
   end
-end 
+# end 
 # board = Board.new
 # ship = Ship.new("Cruiser", 3)
 # sub = Ship.new("Submarine", 2)
