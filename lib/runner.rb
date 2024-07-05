@@ -9,8 +9,13 @@ puts "Welcome to ⚓️ BATTLESHIP 🏴‍☠️"
   if input == 'p'
     puts "Starting your game"
     computer_board = Board.new
-    logan_ship = Ship.new("Logan's Frigate", 3)
-    computer_cells = computer_board.place_ship_random(logan_ship)
+    computer_ship = Ship.new("ai's Frigate", 3)
+    computer_cells = computer_board.place_ship_random(computer_ship)
+    puts "I have laid out my ships on the grid. You now need to lay out one ship. The Cruiser is three units."
+    puts "This is what the board looks like"
+    player_board = Board.new
+    player_board.render
+    puts "Please enter squares for your Cruiser (3 spaces) and we'll begin"
     # randomly assign computer ships to their board (board class)
   elsif input == "q"
     puts "Quitting the game!"
@@ -29,4 +34,4 @@ puts "Welcome to ⚓️ BATTLESHIP 🏴‍☠️"
 # # cell.fire_upon
 # board.render(true)
 
-require 'pry'; binding.pry
+# require 'pry'; binding.pry
