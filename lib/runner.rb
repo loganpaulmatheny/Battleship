@@ -1,11 +1,13 @@
 require './lib/ship'
 require './lib/cell'
 require './lib/board'
+require './lib/commands'
 
 puts "Welcome to ⚓️ BATTLESHIP 🏴‍☠️"
 # loop do 
-  puts "Enter p to play. Enter q to quit."
-  input = gets.chomp.downcase
+puts "Enter p to play. Enter q to quit."
+commands = Commands.new
+input = gets.chomp.downcase
   if input == 'p'
     puts "Starting your game"
     computer_board = Board.new
@@ -15,8 +17,12 @@ puts "Welcome to ⚓️ BATTLESHIP 🏴‍☠️"
     puts "This is what the board looks like"
     player_board = Board.new
     player_board.render
-    puts "Please enter squares for your Cruiser (3 spaces) and we'll begin"
+    puts "Please enter squares for your Cruiser (3 spaces) and we'll begin (e.g 'A1, B1, C1')"
     # randomly assign computer ships to their board (board class)
+    player_input = gets.chop.downcase
+    player_coordinates = commands.process_ship_coordinates(player_input)
+    puts player_coordinates.inspect
+    
   elsif input == "q"
     puts "Quitting the game!"
   else
