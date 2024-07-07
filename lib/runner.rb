@@ -16,21 +16,41 @@ input = gets.chomp.downcase
     puts "I have laid out my ships on the grid. You now need to lay out one ship. The Cruiser is three units."
     puts "This is what the board looks like"
     player_board = Board.new
-    player_cruiser = Ship.new("Le Player", 3)
-    # puts player_cruiser
     player_board.render
+    player_cruiser = Ship.new("Le Player", 3)
+    player_sub = Ship.new("Le Player Blue", 2)
     # puts player_board.inspect
-    puts "Please enter squares for your Cruiser (3 spaces) and we'll begin (e.g 'A1, B1, C1')"
     # randomly assign computer ships to their board (board class)
-    player_input = gets.chop.upcase
-    player_coordinates = commands.process_ship_coordinates(player_input)
-    # puts player_coordinates.inspect
-    # puts player_coordinates.class
-    if player_board.place(player_cruiser, player_coordinates) 
-      puts "That Placement was good"
-    else 
-      puts "Please try that again."
-    end
+    player_cruiser_placed = false
+    until player_cruiser_placed
+      puts "Please enter squares for your Cruiser (3 spaces)(e.g 'A1, B1, C1')"
+      player_input = gets.chop.upcase
+      player_coordinates = commands.process_ship_coordinates(player_input)
+      # puts player_coordinates.inspect
+      # puts player_coordinates.class
+      if player_board.place(player_cruiser, player_coordinates) 
+        puts "Your cruiser has been placed!"
+        player_cruiser_placed = true
+      else 
+        puts "That wasn't quite right, try entering different coordinates."
+      end
+    end 
+    player_sub_placed = false
+    until player_sub_placed
+      puts "Please enter squares for your Sub (2 spaces)"
+      player_input = gets.chop.upcase
+      player_coordinates = commands.process_ship_coordinates(player_input)
+      # puts player_coordinates.inspect
+      # puts player_coordinates.class
+      if player_board.place(player_sub, player_coordinates) 
+        puts "Your Sub has been placed!"
+        player_sub_placed = true
+      else 
+        puts "That wasn't quite right, try entering different coordinates."
+      end
+    end 
+
+
     
   elsif input == "q"
     puts "Quitting the game!"
