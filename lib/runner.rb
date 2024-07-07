@@ -23,7 +23,7 @@ input = gets.chomp.downcase
     # randomly assign computer ships to their board (board class)
     player_cruiser_placed = false
     until player_cruiser_placed
-      puts "Please enter squares for your Cruiser (3 spaces)(e.g 'A1, B1, C1')"
+      puts "Please enter squares for your Cruiser (3 spaces) separated by commas (e.g 'A1, B1, C1')"
       player_input = gets.chop.upcase
       player_coordinates = commands.process_ship_coordinates(player_input)
       # puts player_coordinates.inspect
@@ -37,7 +37,7 @@ input = gets.chomp.downcase
     end 
     player_sub_placed = false
     until player_sub_placed
-      puts "Please enter squares for your Sub (2 spaces)"
+      puts "Please enter squares for your Sub (2 spaces) again, separated by commas"
       player_input = gets.chop.upcase
       player_coordinates = commands.process_ship_coordinates(player_input)
       # puts player_coordinates.inspect
