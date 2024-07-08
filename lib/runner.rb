@@ -1,22 +1,57 @@
 require './lib/ship'
 require './lib/cell'
 require './lib/board'
+require './lib/commands'
 
 puts "Welcome to ⚓️ BATTLESHIP 🏴‍☠️"
 # loop do 
-  puts "Enter p to play. Enter q to quit."
-  input = gets.chomp.downcase
+puts "Enter p to play. Enter q to quit."
+commands = Commands.new
+input = gets.chomp.downcase
   if input == 'p'
     puts "Starting your game"
     computer_board = Board.new
     computer_ship = Ship.new("ai's Frigate", 3)
-    computer_cells = computer_board.place_ship_random(computer_ship)
+    computer_board.place_ship_random(computer_ship)
     puts "I have laid out my ships on the grid. You now need to lay out one ship. The Cruiser is three units."
     puts "This is what the board looks like"
     player_board = Board.new
     player_board.render
-    puts "Please enter squares for your Cruiser (3 spaces) and we'll begin"
+    player_cruiser = Ship.new("Le Player", 3)
+    player_sub = Ship.new("Le Player Blue", 2)
+    # puts player_board.inspect
     # randomly assign computer ships to their board (board class)
+    player_cruiser_placed = false
+    until player_cruiser_placed
+      puts "Please enter squares for your Cruiser (3 spaces) separated by commas (e.g 'A1, B1, C1')"
+      player_input = gets.chop.upcase
+      player_coordinates = commands.process_ship_coordinates(player_input)
+      # puts player_coordinates.inspect
+      # puts player_coordinates.class
+      if player_board.place(player_cruiser, player_coordinates) 
+        puts "Your cruiser has been placed!"
+        player_cruiser_placed = true
+      else 
+        puts "That wasn't quite right, try entering different coordinates."
+      end
+    end 
+    player_sub_placed = false
+    until player_sub_placed
+      puts "Please enter squares for your Sub (2 spaces) again, separated by commas"
+      player_input = gets.chop.upcase
+      player_coordinates = commands.process_ship_coordinates(player_input)
+      # puts player_coordinates.inspect
+      # puts player_coordinates.class
+      if player_board.place(player_sub, player_coordinates) 
+        puts "Your Sub has been placed!"
+        player_sub_placed = true
+      else 
+        puts "That wasn't quite right, try entering different coordinates."
+      end
+    end 
+
+
+    
   elsif input == "q"
     puts "Quitting the game!"
   else
