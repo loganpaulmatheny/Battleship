@@ -17,19 +17,20 @@ class Turn
   
   # Ask the player for a shot
   def player_turn 
-    player_input = Commands.choose_coordinates     
-    if  Commands.check_guess(@player, player_input)  
+    player_input = Commands.choose_coordinates    
+   # Need to also make sure that the coordinate is a valid coordinate 
+    if  Commands.check_guess(@player, player_input) && Commands.validate_coordinate(@computer_board, player_input) 
      player_guess = @computer_board.cells[player_input]
      player_guess.fire_upon
      return player_guess
     else 
-      puts "something's not quite right" 
+      
     end
   end 
   
   def computer_turn
     random_cell = @player_board.cells.keys.sample
-    if Commands.check_guess(@computer, random_cell)
+    if Commands.check_guess(@computer, random_cell) && Commands.validate_coordinate(@player_board, random_cell) 
       computer_guess = @player_board.cells[random_cell]
       computer_guess.fire_upon
       return computer_guess

@@ -27,5 +27,14 @@ class Commands
       puts "That's a good guess!"
       return true
     end  
-  end 
+  end
+  
+  def self.validate_coordinate(board, coordinate)
+    if board.cells.include?(coordinate) 
+      true 
+    else 
+      false
+    end
+  end
+
 end 
