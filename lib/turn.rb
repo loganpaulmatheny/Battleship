@@ -22,9 +22,10 @@ class Turn
     if  Commands.check_guess(@player, player_input) && Commands.validate_coordinate(@computer_board, player_input) 
      player_guess = @computer_board.cells[player_input]
      player_guess.fire_upon
+     @player.guesses.push(player_input)
      return player_guess
     else 
-      
+      player_turn 
     end
   end 
   
@@ -33,9 +34,10 @@ class Turn
     if Commands.check_guess(@computer, random_cell) && Commands.validate_coordinate(@player_board, random_cell) 
       computer_guess = @player_board.cells[random_cell]
       computer_guess.fire_upon
+      @computer.guesses.push(random_cell)
       return computer_guess
     else 
-      puts "Something went wrong" 
+      computer_turn
     end    
   end 
 

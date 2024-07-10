@@ -24,7 +24,6 @@ class Commands
       puts "You've already guessed that, try again"
       return false
     else
-      puts "That's a good guess!"
       return true
     end  
   end
@@ -33,6 +32,7 @@ class Commands
     if board.cells.include?(coordinate) 
       true 
     else 
+      "That coordinate is not on the board, try again"
       false
     end
   end
