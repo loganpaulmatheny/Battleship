@@ -18,7 +18,7 @@ class Commands
     input = gets.chop.upcase 
   end 
 
-  def self.check_guesses(player, guess)
+  def self.check_guess(player, guess)
     # I want to check and see if the coordinates is anywhere in the guessed list already
     if player.guesses.include?(guess)
       puts "You've already guessed that, try again"

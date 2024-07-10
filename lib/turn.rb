@@ -18,7 +18,7 @@ class Turn
   # Ask the player for a shot
   def player_turn 
     player_input = Commands.choose_coordinates     
-    guess_status = Commands.check_guess(player, player_input) 
+    guess_status = Commands.check_guess(@player, player_input) 
     if guess_status == true 
      puts "We haven't guessed that before"
      @computer_board.cells[player_input].fire_upon
