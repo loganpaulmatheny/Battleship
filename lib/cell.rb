@@ -1,5 +1,5 @@
 class Cell
-  attr_reader :ship, :fired_upon
+  attr_reader :ship, :fired_upon, :cell
 
   def initialize(cell)
     @cell = cell

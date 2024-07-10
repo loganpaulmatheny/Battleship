@@ -1,20 +1,25 @@
-require './lib/ship'
-require './lib/cell'
-require './lib/board'
-require './lib/commands'
+
+require_relative 'ship'
+require_relative 'cell'
+require_relative 'board'
+require_relative 'commands'
+require_relative 'player'
+require_relative 'turn'
+
 
 puts "Welcome to ⚓️ BATTLESHIP 🏴‍☠️"
 # loop do 
 puts "Enter p to play. Enter q to quit."
-commands = Commands.new
 input = gets.chomp.downcase
   if input == 'p'
     puts "Starting your game"
+    computer = Player.new
     computer_board = Board.new
     computer_ship = Ship.new("ai's Frigate", 3)
     computer_board.place_ship_random(computer_ship)
     puts "I have laid out my ships on the grid. You now need to lay out one ship. The Cruiser is three units."
-    puts "This is what the board looks like"
+    puts "This is what the board looks like."
+    player = Player.new
     player_board = Board.new
     player_board.render
     player_cruiser = Ship.new("Le Player", 3)
@@ -25,7 +30,7 @@ input = gets.chomp.downcase
     until player_cruiser_placed
       puts "Please enter squares for your Cruiser (3 spaces) separated by commas (e.g 'A1, B1, C1')"
       player_input = gets.chop.upcase
-      player_coordinates = commands.process_ship_coordinates(player_input)
+      player_coordinates = Commands.process_ship_coordinates(player_input)
       # puts player_coordinates.inspect
       # puts player_coordinates.class
       if player_board.place(player_cruiser, player_coordinates) 
@@ -39,7 +44,7 @@ input = gets.chomp.downcase
     until player_sub_placed
       puts "Please enter squares for your Sub (2 spaces) again, separated by commas"
       player_input = gets.chop.upcase
-      player_coordinates = commands.process_ship_coordinates(player_input)
+      player_coordinates = Commands.process_ship_coordinates(player_input)
       # puts player_coordinates.inspect
       # puts player_coordinates.class
       if player_board.place(player_sub, player_coordinates) 
@@ -48,8 +53,11 @@ input = gets.chomp.downcase
       else 
         puts "That wasn't quite right, try entering different coordinates."
       end
-    end 
-
+    end
+   # Here's where I want to run a turn
+  turn = Turn.new(player_board, computer_board, player, computer)
+  computer_board.render(true) 
+  turn.execute
 
     
   elsif input == "q"
