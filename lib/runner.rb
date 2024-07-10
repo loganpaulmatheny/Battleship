@@ -57,6 +57,7 @@ input = gets.chomp.downcase
    # Here's where I want to run a turn
   turn = Turn.new(player_board, computer_board, player, computer)
   computer_board.render(true) 
+  puts  computer_board.cells.keys 
   turn.execute
 
     
