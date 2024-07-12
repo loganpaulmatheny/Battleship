@@ -54,8 +54,8 @@ class Turn
   def display_results(player_guess, computer_guess)
     player_rendered_guess = render_guess_status(player_guess.render)
     computer_rendered_guess = render_guess_status(computer_guess.render)
-    puts "The players guess of #{player_guess.cell } is #{player_guess.render} "
-    puts "The computer' guess of #{computer_guess.cell} is #{computer_guess.render}" 
+    puts "The players guess of #{player_guess.cell } is #{render_guess_status(player_guess.render)} "
+    puts "The computer' guess of #{computer_guess.cell} is #{render_guess_status(computer_guess.render)}" 
   end
 
   def execute 
