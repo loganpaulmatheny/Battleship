@@ -41,21 +41,27 @@ class Turn
     end    
   end 
 
-  def render_guess_status(guess)
+  def render_guess_status(guess, cell = false)
     if guess == "M"
-      return "miss"
+      return "is a miss"
     elsif guess == "H"
-      return "hit"
+      return "is a hit"
     elsif guess ==  "X"
-      return "sunk"
+      return "is a hit and you sunk a #{render_sunk_ship(cell)}"
     end 
    end 
  
+  def render_sunk_ship(cell)
+    if cell != false 
+      return cell.ship
+    else 
+      return null
+    end  
+  end 
+  
   def display_results(player_guess, computer_guess)
-    player_rendered_guess = render_guess_status(player_guess.render)
-    computer_rendered_guess = render_guess_status(computer_guess.render)
-    puts "The players guess of #{player_guess.cell } is #{render_guess_status(player_guess.render)} "
-    puts "The computer' guess of #{computer_guess.cell} is #{render_guess_status(computer_guess.render)}" 
+    puts "The players guess of #{player_guess.cell }  #{render_guess_status(player_guess.render, player_guess.cell)}"
+    puts "The computer' guess of #{computer_guess.cell} #{render_guess_status(computer_guess.render, computer_guess.cell)}" 
   end
 
   def execute 
