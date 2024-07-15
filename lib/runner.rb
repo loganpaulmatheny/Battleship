@@ -55,11 +55,9 @@ input = gets.chomp.downcase
       end
     end
    # Here's where I want to run a turn
-  turn = Turn.new(player_board, computer_board, player, computer)
-  computer_board.render(true) 
-  turn.execute
-
-    
+    turn = Turn.new(player_board, computer_board, player, computer)
+    computer_board.render(true) 
+    turn.execute
   elsif input == "q"
     puts "Quitting the game!"
   else
