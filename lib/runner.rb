@@ -6,73 +6,76 @@ require_relative 'commands'
 require_relative 'player'
 require_relative 'turn'
 
+def welcome_message
+  puts "Welcome to ⚓️ BATTLESHIP 🏴‍☠️"
+end
 
-puts "Welcome to ⚓️ BATTLESHIP 🏴‍☠️"
-# loop do 
-puts "Enter p to play. Enter q to quit."
-input = gets.chomp.downcase
-  if input == 'p'
-    puts "Starting your game"
-    computer = Player.new
-    computer_board = Board.new
-    computer_ship = Ship.new("ai's Frigate", 3)
-    computer_board.place_ship_random(computer_ship)
-    puts "I have laid out my ships on the grid. You now need to lay out one ship. The Cruiser is three units."
-    puts "This is what the board looks like."
-    player = Player.new
-    player_board = Board.new
-    player_board.render
-    player_cruiser = Ship.new("Le Player", 3)
-    player_sub = Ship.new("Le Player Blue", 2)
-    # puts player_board.inspect
-    # randomly assign computer ships to their board (board class)
-    player_cruiser_placed = false
-    until player_cruiser_placed
-      puts "Please enter squares for your Cruiser (3 spaces) separated by commas (e.g 'A1, B1, C1')"
-      player_input = gets.chop.upcase
-      player_coordinates = Commands.process_ship_coordinates(player_input)
-      # puts player_coordinates.inspect
-      # puts player_coordinates.class
-      if player_board.place(player_cruiser, player_coordinates) 
-        puts "Your cruiser has been placed!"
-        player_cruiser_placed = true
-      else 
-        puts "That wasn't quite right, try entering different coordinates."
-      end
-    end 
-    player_sub_placed = false
-    until player_sub_placed
-      puts "Please enter squares for your Sub (2 spaces) again, separated by commas"
-      player_input = gets.chop.upcase
-      player_coordinates = Commands.process_ship_coordinates(player_input)
-      # puts player_coordinates.inspect
-      # puts player_coordinates.class
-      if player_board.place(player_sub, player_coordinates) 
-        puts "Your Sub has been placed!"
-        player_sub_placed = true
-      else 
-        puts "That wasn't quite right, try entering different coordinates."
-      end
+def prompt_user
+  puts "Enter p to play. Enter q to quit."
+  input = gets.chomp.downcase
+end
+
+def setup_computer
+  computer = Player.new
+  computer_board = Board.new
+  computer_ship = Ship.new("ai's Frigate", 3)
+  computer_board.place_ship_random(computer_ship)
+  [computer, computer_board]
+end
+
+def setup_player
+  player = Player.new
+  player_board = Board.new
+  player_board.render
+  [player, player_board]
+end
+
+def place_ship(player_board, ship, instructions)
+  ship_placed = false
+  until ship_placed
+    puts instructions
+    player_input = gets.chop.upcase
+    player_coordinates = Commands.process_ship_coordinates(player_input)
+    if player_board.place(ship, player_coordinates) 
+      puts "Your #{ship.name} has been placed!"
+      ship_placed = true
+    else 
+      puts "That wasn't quite right, try entering different coordinates."
     end
-   # Here's where I want to run a turn
-    turn = Turn.new(player_board, computer_board, player, computer)
-    computer_board.render(true) 
-    turn.execute
-  elsif input == "q"
-    puts "Quitting the game!"
-  else
-    puts "Invalid input. Please enter 'p' to play or 'q' to quit."
   end
-# end 
-# board = Board.new
-# ship = Ship.new("Cruiser", 3)
-# sub = Ship.new("Submarine", 2)
-# board.place(ship,["A1","A2","A3"])
-# # cell.place_ship(ship)
-# # board.valid_placement?(ship, ["A1","A2","A3"])
-# # cell.fire_upon
-# # cell.fire_upon
-# # cell.fire_upon
-# board.render(true)
+end 
 
-# require 'pry'; binding.pry
+def play_game
+  puts "Starting the game"
+  computer, computer_board = setup_computer
+  player, player_board = setup_player
+  puts "I have laid out my ships on the grid. You now need to lay out one ship. The Cruiser is three units."
+
+  cruiser = Ship.new("Le Player Cruiser", 3)
+  sub = Ship.new("Le Player Sub", 2) 
+
+  place_ship(player_board, cruiser, "Please enter squares for your Cruiser (3 spaces) separated by commas (e.g 'A1, B1, C1')")
+  place_ship(player_board, sub, "Please enter squares for your Sub (2 spaces) separated by commas (e.g 'A1, B1')")
+
+  turn = Turn.new(player_board, computer_board, player, computer) 
+  computer_board.render(true)
+  turn.execute
+end 
+
+def run_game
+  welcome_message 
+  loop do 
+    input = prompt_user
+    case input 
+    when "p"
+      play_game
+    when "q" 
+      puts "Quitting game"
+      break 
+    else 
+      puts "Invalid input, please type 'p' to play the game, or 'q' to quit the game"
+    end
+  end
+end
+
+run_game
