@@ -1,15 +1,6 @@
 require './lib/cell'
 class Board 
   attr_reader :cells
-  # U is to create a cells method that will create 16 cells and place them in a hash
-  # M 
-  # - I can use two loops to pass the appropriate arguments to the Cell.new() constructor  
-  # P 
-  ## - create a for loop that runs for [A-D]
-  ## - inside that loop create another loop that runs through [1-4]
-  ## - the inner loop should create the cell objects
-  ## ? how can we do this such that we will not have to create the initial object and reference it? 
-
 
   def initialize 
     @cells = {}
@@ -37,7 +28,7 @@ class Board
     else
       # If the placement is not valid, return false
       puts "Invalid placement"
-      false
+     false
     end
   end
 
@@ -153,16 +144,6 @@ class Board
   end
 
   def render(show_ships = false) 
-    # U - how can we create the headings? 
-    # M 
-      # need to iterate through the coordinates letters
-      # need to iterate through the coordinates numbers
-      # need to add a blank in the 
-      # is it easier to keep track of what row we're on? 
-    # P
-      # first just print the headings 
-      # iterate the first row of A coordinates including the coordinate header 1 
-      # iterate the next row of B coordinates including coordinate header 2 
     print " "
     @columns.each { |number| print number.to_s + " "}
     print "\n"
@@ -175,12 +156,6 @@ class Board
       end 
       print "\n"
     end 
-    # @cells.each do |coordinate, cell|
-    #   print coordinate + "-" + cell.render(show_ships) + " "
-    #   print "\n" if coordinate.end_with?("4")
-    # end 
   end
-
 end 
 
-# require 'pry'; binding.pry

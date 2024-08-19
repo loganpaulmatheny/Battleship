@@ -7,7 +7,7 @@ class Commands
     coordinates = input.split(",", 0)
     return coordinates
   end 
-  
+
   def self.remove_spaces(input)
     input = input.gsub(" ", "")
   end 
@@ -15,19 +15,24 @@ class Commands
 
   def self.choose_coordinates
     puts 'Enter the coordinates for your shot.'
-    input = gets.chop.upcase 
+    input = gets.chomp.upcase 
   end 
 
   def self.check_guess(player, guess)
-    # I want to check and see if the coordinates is anywhere in the guessed list already
-    if player.guesses.include?(guess)
+    guess = guess.strip.downcase
+    normalized_guesses = player.guesses.map(&:strip).map(&:downcase)
+
+    puts "Guess: #{guess}"
+    puts "Normalized Guesses: #{normalized_guesses.inspect}"
+
+    if normalized_guesses.include?(guess)  
       puts "You've already guessed that, try again"
       return false
     else
       return true
     end  
   end
-  
+
   def self.validate_coordinate(board, coordinate)
     if board.cells.include?(coordinate) 
       true 

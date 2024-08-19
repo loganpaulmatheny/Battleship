@@ -1,4 +1,4 @@
-
+require 'pry'
 require_relative 'ship'
 require_relative 'cell'
 require_relative 'board'
@@ -19,7 +19,9 @@ def setup_computer
   computer = Player.new
   computer_board = Board.new
   computer_ship = Ship.new("ai's Frigate", 3)
+  computer_sub = Ship.new("ai's Sub", 2)
   computer_board.place_ship_random(computer_ship)
+  computer_board.place_ship_random(computer_sub)
   [computer, computer_board]
 end
 
@@ -58,7 +60,7 @@ def play_game
   place_ship(player_board, sub, "Please enter squares for your Sub (2 spaces) separated by commas (e.g 'A1, B1')")
 
   turn = Turn.new(player_board, computer_board, player, computer) 
-  computer_board.render(true)
+  # delete this once verified works
   turn.execute
 end 
 

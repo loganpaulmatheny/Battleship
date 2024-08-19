@@ -28,7 +28,8 @@ class Turn
         @computer.ship_sunk
       end
       return player_guess
-    else 
+    else
+      puts "I think that was a missfire, try again" 
       player_turn 
     end
   end 
@@ -44,6 +45,7 @@ class Turn
       end
       return computer_guess
     else 
+      puts "Computer had a missfire, check the code"
       computer_turn
     end    
   end 
@@ -71,20 +73,21 @@ class Turn
     puts "The computer' guess of #{computer_guess.cell} #{render_guess_status(computer_guess.render, computer_guess)}" 
   end
 
-  def execute 
-    display_boards
-    until game_over?
-      player_move = player_turn
-      computer_move = computer_turn
-      display_results(player_move, computer_move)
-    end
-    puts "Game over"
-    if @player.ships_remaining > 0
-      puts "Player wins!!"
-    else 
-      puts "Computer wins!"
-    end
+def execute 
+  display_boards
+  until game_over?
+    player_move = player_turn
+    computer_move = computer_turn
+    display_results(player_move, computer_move)
+    binding.pry
   end
+  puts "Game over"
+  if @player.ships_remaining >  0
+    puts "Player wins!!"
+  else 
+    puts "Computer wins!"
+  end
+end
 
   def game_over?
     @player.ships_remaining == 0  || @computer.ships_remaining == 0 

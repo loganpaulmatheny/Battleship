@@ -1,3 +1,5 @@
+require_relative 'ship'
+
 class Cell
   attr_reader :ship, :fired_upon, :cell
 
@@ -28,8 +30,9 @@ class Cell
   end
 
   def fire_upon
-    if @ship 
+    unless empty? 
       @ship.hit
+      puts @ship.health
     end 
     @fired_upon = true
   end 
@@ -54,9 +57,9 @@ class Cell
     elsif @fired_upon == true && @ship == nil
       return "M"
     elsif @fired_upon == true && @ship && @ship.health != 0
-      @ship.hit
       return "H"
     elsif @fired_upon == true && @ship && @ship.health == 0
+      puts "ship sunk"
       return "X"
     end 
   end 
